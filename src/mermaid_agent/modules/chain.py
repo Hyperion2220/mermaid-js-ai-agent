@@ -211,7 +211,7 @@ class MinimalChainable:
     @staticmethod
     def to_delim_text_file(name: str, content: List[Union[str, dict, list]]) -> str:
         result_string = ""
-        with open(f"{name}.txt", "w") as outfile:
+        with open(f"{name}.txt", "w", encoding="utf-8") as outfile:
             for i, item in enumerate(content, 1):
                 if isinstance(item, (dict, list)):
                     item = json.dumps(item)

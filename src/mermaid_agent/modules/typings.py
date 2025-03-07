@@ -9,6 +9,8 @@ class FusionChainResult(BaseModel):
     all_context_filled_prompts: List[List[str]]
     performance_scores: List[float]
     model_names: List[str]
+    
+    model_config = ConfigDict(protected_namespaces=())
 
 
 class OneShotMermaidParams(BaseModel):
