@@ -41,6 +41,15 @@ def build_sonnet_3_5():
     return sonnet_3_5_model
 
 
+def build_sonnet_3_7():
+    ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+
+    sonnet_3_7_model: llm.Model = llm.get_model("claude-3.7-sonnet")
+    sonnet_3_7_model.key = ANTHROPIC_API_KEY
+
+    return sonnet_3_7_model
+
+
 def build_mini_model():
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     gpt4_o_mini_model: llm.Model = llm.get_model("gpt-4o-mini")

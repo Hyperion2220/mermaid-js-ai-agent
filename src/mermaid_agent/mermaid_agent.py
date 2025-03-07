@@ -15,7 +15,8 @@ from PIL import Image
 
 def build_model():
     # see llm_module.py for model options
-    return llm_module.build_sonnet_3_5()
+    # return llm_module.build_sonnet_3_5()
+    return llm_module.build_sonnet_3_7()
     # return llm_module.build_latest_openai()
     # return llm_module.build_mini_model()
 
@@ -38,7 +39,13 @@ def one_shot_mermaid_agent(params: OneShotMermaidParams) -> MermaidAgentResponse
 You follow the instructions perfectly to generate mermaid charts.
 
 <instructions>
-    <instruction>Based on the user-prompt, create the corresponding mermaid chart.</instruction>
+    <instruction>Based on the user-prompt, identify the appropriate diagram type (flowchart, sequence, state, etc.) and create the corresponding mermaid chart.</instruction>
+    <instruction>If the diagram type isn't explicitly stated, infer the most appropriate type based on the content.</instruction>
+    <instruction>For complex diagrams, organize elements logically and use subgraphs or clusters when appropriate.</instruction>
+    <instruction>If the requested diagram would be too large or complex, focus on the key elements and relationships.</instruction>
+    <instruction>Use consistent styling throughout the diagram.</instruction>
+    <instruction>Apply appropriate colors, shapes, and styles to enhance readability when necessary.</instruction>
+    <instruction>For complex diagrams, use visual hierarchy to emphasize important elements.</instruction>
     <instruction>Be very precise with the chart, every node and edge must be included.</instruction>
     <instruction>Use double quotes for text in the chart</instruction>
     <instruction>Respond with the mermaid chart only.</instruction>
@@ -90,17 +97,16 @@ You follow the instructions perfectly to generate mermaid charts.
     </example>
     <example>
         <user-chart-request>
-            State diagram for a traffic light. Still, Moving, Crash.
+            State diagram for a life cycle of a person. Birth, Childhood, Adulthood, Old Age, Death.
         </user-chart-request>
         <chart-response>
             stateDiagram-v2
-                [*] --> Still
-                Still --> [*]
-
-                Still --> Moving
-                Moving --> Still
-                Moving --> Crash
-                Crash --> [*]
+                [*] --> Birth
+                Birth --> Childhood
+                Childhood --> Adulthood
+                Adulthood --> OldAge
+                OldAge --> Death
+                Death --> [*]
         </chart-response>
     </example>
     <example>
@@ -217,7 +223,9 @@ def resolution_mermaid_agent(params: ResolutionMermaidParams) -> MermaidAgentRes
 You have been given a damaged mermaid chart and an error message. Your task is to fix the chart.
 
 <instructions>
-    <instruction>Analyze the error message and the damaged mermaid chart.</instruction>
+    <instruction>Identify common syntax errors such as missing quotes, invalid connections, or unsupported features.</instruction>
+    <instruction>If the error is related to diagram complexity, simplify the diagram while preserving the core information.</instruction>
+    <instruction>Check for and fix any invalid characters or formatting issues that might cause rendering problems.</instruction>
     <instruction>Identify the issue causing the error.</instruction>
     <instruction>Fix the mermaid chart to resolve the error.</instruction>
     <instruction>Ensure the fixed chart still fulfills the original prompt.</instruction>
@@ -316,6 +324,9 @@ You have been given a current mermaid chart and a request for changes. Your task
     <instruction>Ensure the updated chart still fulfills the original base prompt.</instruction>
     <instruction>Respond with the updated mermaid chart only.</instruction>
     <instruction>Do not wrap the mermaid chart in markdown code blocks.</instruction>
+    <instruction>Preserve the overall structure and style of the original diagram when making changes.</instruction>
+    <instruction>Ensure that changes integrate seamlessly with the existing elements.</instruction>
+    <instruction>When adding new elements, follow the naming and styling conventions established in the original diagram.</instruction>
 </instructions>
 
 <current-mermaid-chart>

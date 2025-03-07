@@ -10,9 +10,9 @@
 - Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - Install dependencies `uv sync`
 - Set your OpenAI API key as an environment variable `export OPENAI_API_KEY=<your_api_key>`
-- Optionally setup 
-  - Optionally set ANTHROPIC_API_KEY, VERTEX_API_KEY, GROQ_API_KEY as environment variables. See `.env.sample` for details.
-    - Update your LLM in the `src/mermaid_agent/modules/llm_module.py: build_model()` function.
+- Optionally set ANTHROPIC_API_KEY, VERTEX_API_KEY, GROQ_API_KEY as environment variables. See `.env.sample` for details.
+- To add or change a model, go to `src/mermaid_agent/modules/llm_module.py
+- To use or change a model, go to, `src/mermaid_agent/modules/mermaid_agent.py
 - ✅ To run a single generation: 
   - `uv run main mer -p "Flowchart of ##setup instructions" -o "setup_diagram.png" -i "./README.md"`
   - `uv run main mer -p "state diagram of process: build prompt, generate HQ examples, iterate, build dataset, fine-tune, test, iterate, prompt " -o "fine_tune_process.png"`
@@ -22,9 +22,6 @@
 - ✅ To run a bulk-version based iteration
   - `uv run main mer-bulk -p "Flowchart of ##setup instructions" -o "setup_diagram.png" -i "./README.md" -c 5` 
   - `uv run main mer-bulk -p "pie chart title: 'Time Spent on Project Tasks', 'Coding', 'Testing', 'Documentation', 'Meetings', 'Learn AI Coding w/IndyDevDan'" -o "project_time_allocation.png" -c 5`
-
-## Learn AI Coding
-- Watch us code the [mer-bulk command with AIDER](https://youtu.be/ag-KxYS8Vuw)
 
 ## Next
 - [] every output/ session id directory for image 
